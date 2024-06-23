@@ -1,14 +1,12 @@
+/*
+
 'use strict';
 const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Sensor extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+ 
     static associate(models) {
       // define association here
     }
@@ -25,3 +23,22 @@ module.exports = (sequelize, DataTypes) => {
   });
   return Sensor;
 };
+*/
+
+const { DataTypes, Model } = require('sequelize');
+const sequelize = require('../config/config');
+
+class Sensor extends Model {}
+
+Sensor.init({
+  temperature: DataTypes.FLOAT,
+    humidity: DataTypes.FLOAT,
+    moisture: DataTypes.INTEGER,
+    waterLevel: DataTypes.INTEGER,
+    light: DataTypes.INTEGER
+}, {
+  sequelize,
+  modelName: 'Sensor',
+});
+
+module.exports = Sensor;

@@ -6,6 +6,30 @@
     <title>Arduino</title>
 </head>
 <body>
-    <h1>Hello world</h1>
+    <div class="data-container">
+        <div class="data-item" id="temperature"></div>
+        <div class="data-item" id="humidity"></div>
+        <div class="data-item" id="moisture"></div>
+        <div class="data-item" id="waterLevel"></div>
+        <div class="data-item" id="light"></div>
+        <div class="data-item" id="createdAt"></div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            fetch('http://localhost:3000/api/data')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('temperature').innerText = `Temperature: ${data.temperature}`;
+                document.getElementById('humidity').innerText = `Humidity: ${data.humidity}`;
+                document.getElementById('moisture').innerText = `Moisture: ${data.moisture}`;
+                document.getElementById('waterLevel').innerText = `waterLevel: ${data.waterLevel}`;
+                document.getElementById('light').innerText = `light: ${data.light}`;
+                document.getElementById('createdAt').innerText = `Last update: ${data.createdAt}`;
+            })
+            .catch(error => console.error('error fetching data:', error));
+        });
+    </script>
 </body>
 </html>

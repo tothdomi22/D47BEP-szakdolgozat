@@ -2,6 +2,7 @@ const Controlpanel = require('../models/controlpanel');
 const path = require('path')
 
 const updateControlPanel = async (req, res) => {
+    console.log(req.body.wateringDuration)
     try {
         const data = await Controlpanel.update({
             wateringDuration: req.body.wateringDuration,
@@ -9,7 +10,7 @@ const updateControlPanel = async (req, res) => {
             tankDepth: req.body.tankDepth,
         }, {
                 where: {
-                    id: 1,
+                    id: req.body.id,
                 }
         });
         res.status(200).json({message: "data updated successully"})

@@ -29,6 +29,7 @@ app.get('/', sensorController.indexSensor);
 app.get('/control-panel', controlPanelController.indexControlPanel)
 
 
+
 //database sync
 sequelize.sync()
   .then(() => {

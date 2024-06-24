@@ -8,16 +8,7 @@
 <body>
     <h1>Control panel</h1>
     <div>
-        <select name="presets" id="presets">
-            <option value="">fa</option>
-        </select>
-
-
-        <div><a href="">fa</a></div>
-        <div></div>
-    </div>
-    <div>
-        <form action="http://localhost:3000/api/control-panel/insert" method="post">
+        <form id="update-form">
             <label for="wateringDuration">Watering duration</label>
             <input type="range" name="wateringDuration" id="wateringDuration" min="0" max="100" step="1">
             <p id="wateringValue"></p>
@@ -29,17 +20,42 @@
             <label for="tankDepth">Tank depth</label>
             <input type="range" name="tankDepth" id="tankDepth" min="0" max="100" step="1">
             <p id="tankDepthValue"></p>
+            <p id="errortext"></p>
 
 
             <button type="submit">Update</button>
-        </form>  
-        
+        </form>
     </div>
 
 
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
+
+        
+        document.getElementById('update-form').addEventListener('submit', function(event) {
+            event.preventDefault()
+            let formData = {
+                wateringDuration: document.getElementById('wateringDuration').value,
+                wateringPercent: document.getElementById('wateringPercent').value,
+                tankDepth: document.getElementById('tankDepth').value,
+                id: 1,
+            };
+            fetch("http://localhost:3000/api/control-panel/update", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('errortext').innerText = data.message;
+            })
+            .catch(error => {
+                console.error('Error: ', error);
+            });
+        })
 
         const wateringSlider = document.getElementById("wateringDuration");
         const wateringValue = document.getElementById("wateringValue")

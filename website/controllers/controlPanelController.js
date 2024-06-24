@@ -13,9 +13,9 @@ const updateControlPanel = async (req, res) => {
                     id: req.body.id,
                 }
         });
-        res.status(200).json({message: "data updated successully"})
+        res.status(200).json({message: "Data updated successully!"})
     } catch (error) {
-        res.status(500).json({message: "error updating data", data: req.body})
+        res.status(500).json({message: "Error updating data"})
     }
 };
 

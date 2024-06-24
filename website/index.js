@@ -38,6 +38,11 @@ app.get('/', (req, res) => {
 });
 
 
+app.get('/control-panel', (req, res) => {
+    res.sendFile(__dirname + "/views/control-panel.html");
+})
+
+
 sequelize.sync()
   .then(() => {
     app.listen(port, () => {

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>hello world</h1>
+    <div>
+        <form action="#" method="post">
+            <label for="watering">Watering duration</label>
+            <input type="range" name="watering" id="watering" min="0" max="100" step="1">
+            <p id="wateringValue" ></p>
+
+            <label for="wateringPercent">watering %</label>
+            <input type="range" name="wateringPercent" id="wateringPercent" min="0" max="100" step="1">
+            <p id="wateringPercentValue" ></p>
+
+
+
+            <button type="submit">Update</button>
+        </form>  
+        
+    </div>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+        const wateringSlider = document.getElementById("watering");
+        const wateringValue = document.getElementById("wateringValue")
+
+        wateringValue.innerText = `${wateringSlider.value} s`;
+    
+        wateringSlider.addEventListener("input",() => {
+            wateringValue.innerText = `${wateringSlider.value} s`;
+        })
+        
+    })
+</script>
+</body>
+</html>

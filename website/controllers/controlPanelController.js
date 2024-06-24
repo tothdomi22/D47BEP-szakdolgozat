@@ -32,8 +32,23 @@ const indexControlPanel = (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'views', 'control-panel.html'));
 };
 
+
+const getLatestData = async (req,  res) => {
+    try {
+        const data = await Controlpanel.findOne({
+            where: {
+                id: 1
+            }
+        })
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(500).json({message: "couldnt get data"});
+    };
+}
+
 module.exports = {
     updateControlPanel,
     getControlPanel,
     indexControlPanel,
+    getLatestData,
 }

@@ -13,6 +13,7 @@ const sensorController = require('./controllers/sensorController');
 //middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname + "/views"))
 
 
 //routes
@@ -20,13 +21,17 @@ app.get('/api/data', sensorController.getTopSensor);
 
 app.get('/api/data/insert', sensorController.storeSensor);
 
-app.get('/api/control-panel/data', controlPanelController.getControlPanel);
+app.get('/api/control-panel/data', controlPanelController.getLatestData);
 
 app.post('/api/control-panel/update', controlPanelController.updateControlPanel);
+
+app.get('/api/control-panel/latest')
     
 app.get('/', sensorController.indexSensor);
 
 app.get('/control-panel', controlPanelController.indexControlPanel)
+
+
 
 
 

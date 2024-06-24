@@ -6,4 +6,6 @@ const sequelize = new Sequelize('d47bep', 'root', 'ilovebiking', {
   dialect: 'mysql'
 });
 
+
 module.exports = sequelize;
+

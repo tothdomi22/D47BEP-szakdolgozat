@@ -6,17 +6,29 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>hello world</h1>
+    <h1>Control panel</h1>
     <div>
-        <form action="#" method="post">
-            <label for="watering">Watering duration</label>
-            <input type="range" name="watering" id="watering" min="0" max="100" step="1">
-            <p id="wateringValue" ></p>
+        <select name="presets" id="presets">
+            <option value="">fa</option>
+        </select>
+
+
+        <div><a href="">fa</a></div>
+        <div></div>
+    </div>
+    <div>
+        <form action="http://localhost:3000/api/control-panel/insert" method="post">
+            <label for="wateringDuration">Watering duration</label>
+            <input type="range" name="wateringDuration" id="wateringDuration" min="0" max="100" step="1">
+            <p id="wateringValue"></p>
 
             <label for="wateringPercent">watering %</label>
             <input type="range" name="wateringPercent" id="wateringPercent" min="0" max="100" step="1">
-            <p id="wateringPercentValue" ></p>
+            <p id="wateringPercentValue"></p>
 
+            <label for="tankDepth">Tank depth</label>
+            <input type="range" name="tankDepth" id="tankDepth" min="0" max="100" step="1">
+            <p id="tankDepthValue"></p>
 
 
             <button type="submit">Update</button>
@@ -29,13 +41,27 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
 
-        const wateringSlider = document.getElementById("watering");
+        const wateringSlider = document.getElementById("wateringDuration");
         const wateringValue = document.getElementById("wateringValue")
+        const percentSlider = document.getElementById("wateringPercent");
+        const percentValue = document.getElementById("wateringPercentValue");
+        const tankValue = document.getElementById("tankDepthValue");
+        const tankSlider = document.getElementById("tankDepth");
 
+        percentValue.innerText = `${percentSlider.value} %`;
         wateringValue.innerText = `${wateringSlider.value} s`;
+        tankValue.innerText = `${tankSlider.value} cm`
+
+        percentSlider.addEventListener("input", () => {
+            percentValue.innerText = `${percentSlider.value} %`;
+        })
     
         wateringSlider.addEventListener("input",() => {
             wateringValue.innerText = `${wateringSlider.value} s`;
+        })
+
+        tankSlider.addEventListener("input", () => {
+            tankValue.innerText = `${tankSlider.value} cm`
         })
         
     })

@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const tankSlider = document.getElementById("tankDepth");
     let id;
     
-    fetch("http://localhost:3000/api/control-panel/data")
+    fetch("http://localhost:3000/control-panel/data")
     .then(response => response.json())
     .then(data => {
         wateringSlider.value = data.wateringDuration,
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
             tankDepth: document.getElementById('tankDepth').value,
             id: id,
         };
-        fetch("http://localhost:3000/api/control-panel/update", {
+        fetch("http://localhost:3000/control-panel/update", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

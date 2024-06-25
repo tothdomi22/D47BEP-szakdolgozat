@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function(){
-    fetch('http://localhost:3000/api/data')
+    fetch('http://localhost:3000/data')
     .then(response => response.json())
     .then(data => {
         document.getElementById('temperature').innerText = `${data.temperature}°C`;

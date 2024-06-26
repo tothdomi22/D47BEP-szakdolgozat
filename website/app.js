@@ -4,8 +4,9 @@ const bodyParser = require('body-parser');
 const app = express();
 
 //Route imports
-const sensorRoutes = require('./routes/sensorRoutes');
-const controlPanelRoutes = require('./routes/controlPanelRoutes');
+const sensorRouter = require('./routes/sensorRoutes');
+const controlPanelRouter = require('./routes/controlPanelRoutes');
+const authRouter = require('./routes/authRoutes')
 
 //Middleware
 app.use(express.json());
@@ -13,7 +14,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'views')));
 
 //Routes
-app.use('/', sensorRoutes);
-app.use('/control-panel', controlPanelRoutes);
+app.use('/', authRouter);
+app.use('/', sensorRouter);
+app.use('/control-panel', controlPanelRouter);
 
 module.exports = app;

@@ -13,21 +13,8 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true
       },
-      hashed_password: {
-        type: Sequelize.BLOB
-      },
-      salt: {
-        type: Sequelize.BLOB
-      },
-      name: {
+      password: {
         type: Sequelize.STRING
-      },
-      email: {
-        type: Sequelize.STRING,
-        unique: true
-      },
-      email_verified: {
-        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

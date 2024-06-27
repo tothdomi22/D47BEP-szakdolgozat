@@ -40,11 +40,16 @@ app.get('/insert', async (req, res) => {
     }
 })
 
-//Login Route
-app.get('/login', passport.authenticate('local'), (req, res) => {
-    res.status(200).send({message: 'Logged In Successful'})
-});
 
+//Login Route
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, './views/auth/login.html'))
+})
+
+app.post('/login/password', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+  }));
 
 //Logout Route
 app.get('/logout', (req, res) => {

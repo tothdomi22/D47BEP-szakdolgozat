@@ -3,6 +3,7 @@ const sequelize = require('../config/config');
 const { DataTypes} = require("sequelize");
 const User = require('../models/user')(sequelize, DataTypes);
 const path = require('path');
+const crypto = require('crypto');
 
 
 const login = (req, res) => {
@@ -14,10 +15,16 @@ const register = (req, res) => {
 }
 
 const storeRegistration = async (req, res) => {
+    const salt = crypto.randomBytes(16); //seed
     try {
-        const data = await User.create({
-            username: req.body.username,
-            password: req.body.password
+        crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', async function(err, hashed_password) {
+            const data = User.create({
+                username: req.body.username,
+                hashed_password: hashed_password,
+                email: req.body.email,
+                name: req.body.name,
+                salt: salt
+        })
         });
         res.redirect('/');
     } catch (error) {

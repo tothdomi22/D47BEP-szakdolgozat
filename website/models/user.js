@@ -8,19 +8,30 @@ module.exports = function(sequelize, Sequelize) {
           autoIncrement: true
       },
       username: {
-          type: DataTypes.STRING,
-          allowNull: false,
-          unique: true
+        type: DataTypes.STRING,
+        unique: true
       },
-      password: {
-          type: DataTypes.STRING,
-          allowNull: true,
-          notEmpty: true,
+      email: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false
+      },
+      hashed_password: {
+        type: DataTypes.BLOB,
+        allowNull: false
+      },
+      salt: {
+        type: DataTypes.BLOB,
+        allowNull: false
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false
       },
   })
-  User.prototype.validPassword = function (password) {
-      return this.password === password
-  }
+  /*User.prototype.validPassword = function (hashed_password) {
+      return this.hashed_password === hashed_password
+  }*/
 
   return User
 }

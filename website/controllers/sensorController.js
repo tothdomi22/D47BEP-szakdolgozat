@@ -1,6 +1,7 @@
 const { isAuthenticated } = require('../middleware/authMiddleware');
 const Sensor = require('../models/sensor');
 const path = require('path')
+const crypto = require('crypto');
 
 const storeSensor = async (req, res) => {
     try {

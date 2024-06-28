@@ -1,9 +1,9 @@
 const express = require('express');
 const path = require('path');
 const passport = require('passport')
-require('./config/passport')
 const session = require('express-session')
 const app = express();
+require('./config/passport')
 
 
 //Route imports

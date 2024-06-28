@@ -37,16 +37,28 @@ const loginPassword = passport.authenticate('local', {
     failureRedirect: '/login'
   })
 
-  const logout = (req, res) => {
+const logout = (req, res) => {
     req.logout(() => {
         res.redirect('/');
       });
 }
+
+
+const currentUser = (req, res) => {
+    if (req.user && req.user.username) {
+        res.json({ username: req.user.username });
+    } else {
+        res.status(401).send('User not authenticated');
+    }
+}
+
+
 
 module.exports = {
     register,
     login,
     logout,
     storeRegistration,
-    loginPassword
+    loginPassword,
+    currentUser
 }

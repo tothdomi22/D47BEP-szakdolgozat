@@ -1,7 +1,6 @@
 const app = require('./app');
 const sequelize = require('./config/config');
 const port = 3000;
-const controlPanelRoutes = require('./routes/controlPanelRoutes')
 
 
 //database sync

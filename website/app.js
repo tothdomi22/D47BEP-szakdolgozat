@@ -1,15 +1,8 @@
 const express = require('express');
 const path = require('path');
-const bodyParser = require('body-parser');
-
-
-const sequelize = require('./config/config');
-const { DataTypes} = require("sequelize");
-const User = require('./models/user')(sequelize, DataTypes);
 const passport = require('passport')
 require('./config/passport')
 const session = require('express-session')
-
 const app = express();
 
 
@@ -27,8 +20,8 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 //Routes
-app.use('/', authRouter);
 app.use('/', sensorRouter);
+app.use('/', authRouter);
 app.use('/control-panel', controlPanelRouter);
 
 module.exports = app;

@@ -4,6 +4,7 @@ const { DataTypes} = require("sequelize");
 const User = require('../models/user')(sequelize, DataTypes);
 const path = require('path');
 
+
 const login = (req, res) => {
     res.sendFile(path.join(__dirname, '..', './views/auth/login.html'))
 }

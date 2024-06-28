@@ -1,5 +1,6 @@
 const { isAuthenticated } = require('../middleware/authMiddleware');
 const Sensor = require('../models/sensor');
+const path = require('path')
 
 const storeSensor = async (req, res) => {
     try {
@@ -28,7 +29,7 @@ const getTopSensor = async (req, res) => {
 };
 
 const indexSensor = (req, res) => {
-    res.sendFile(__dirname + "/views/index.html")
+    res.sendFile(path.join(__dirname, '..', 'views', 'sensor.html'))
 }
 
 module.exports = {

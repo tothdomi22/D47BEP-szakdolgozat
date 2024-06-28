@@ -27,53 +27,6 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 //Routes
-
-app.get('/insert', async (req, res) => {
-    const data = {username: "testun", password: "testpw", createdAt: new Date(), updatedAt: new Date()};
-    try {
-        const file = await User.create(data);
-        console.log(file)
-        res.status(200).send("success")
-    } catch (error) {
-        res.status(500).send(`${error}, not success`)
-        
-    }
-})
-
-
-//Login Route
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, './views/auth/login.html'))
-})
-
-app.post('/login/password', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login'
-  }));
-
-//Logout Route
-app.get('/logout', (req, res) => {
-    req.logout(() => {
-        res.redirect('/');
-      });
-})
-
-const isAuthenticated = (req,res,next) => {
-    if(req.user) //itt a req.user az az adatbázisből lekért rekord
-       return next();
-    else
-       return res.status(401).json({
-         error: 'User not authenticated'
-       })
-}
-
-app.use(isAuthenticated)
-//Route
-app.get('/hello', (req, res) => {
-    res.send({message: 'Hello World'})
-    console.log(req.user.username)
-})
-
 app.use('/', authRouter);
 app.use('/', sensorRouter);
 app.use('/control-panel', controlPanelRouter);

@@ -1,12 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const LocalStrategy = require('passport-local');
 const path = require('path')
+require('../config/passport')
+const User = require('../models/user')
+const authController = require('../controllers/authController')
 
 
-router.get('/login', (req, res, next) => {
-    res.sendFile(path.join(__dirname, '..' ,'/views/auth/login.html'));
-})
+
+router.get('/login', authController.login)
+
+router.get('/register', authController.register); 
+
+router.post('/register/store', authController.storeRegistration);
+
+router.post('/login/password', authController.loginPassword);
+
+router.get('/logout', authController.logout);
 
 module.exports = router;

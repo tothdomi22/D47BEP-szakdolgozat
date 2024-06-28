@@ -1,3 +1,4 @@
+const { isAuthenticated } = require('../middleware/authMiddleware');
 const Sensor = require('../models/sensor');
 
 const storeSensor = async (req, res) => {

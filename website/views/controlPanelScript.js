@@ -11,13 +11,50 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch("http://localhost:3000/control-panel/data")
     .then(response => response.json())
     .then(data => {
-        wateringSlider.value = data.wateringDuration,
-        percentSlider.value = data.wateringPercent,
-        tankSlider.value = data.tankDepth
-        percentValue.innerText = `${data.wateringPercent} %`;
-        wateringValue.innerText = `${data.wateringDuration} s`;
-        tankValue.innerText = `${data.tankDepth} cm`,
-        id = data.id
+
+        const item = data.find(obj => obj.preset == "preset1")
+
+        wateringSlider.value = item.wateringDuration,
+        percentSlider.value = item.wateringPercent,
+        tankSlider.value = item.tankDepth
+        percentValue.innerText = `${item.wateringPercent} %`;
+        wateringValue.innerText = `${item.wateringDuration} s`;
+        tankValue.innerText = `${item.tankDepth} cm`,
+        id = item.id
+    })
+
+    document.getElementById('preset1').addEventListener('click', function(){
+        fetch("http://localhost:3000/control-panel/data")
+    .then(response => response.json())
+    .then(data => {
+
+        const item = data.find(obj => obj.preset == "preset1")
+
+        wateringSlider.value = item.wateringDuration,
+        percentSlider.value = item.wateringPercent,
+        tankSlider.value = item.tankDepth
+        percentValue.innerText = `${item.wateringPercent} %`;
+        wateringValue.innerText = `${item.wateringDuration} s`;
+        tankValue.innerText = `${item.tankDepth} cm`,
+        id = item.id
+    })
+    })
+
+    document.getElementById('preset2').addEventListener('click', function(){
+        fetch("http://localhost:3000/control-panel/data")
+    .then(response => response.json())
+    .then(data => {
+
+        const item = data.find(obj => obj.preset == "preset2")
+
+        wateringSlider.value = item.wateringDuration,
+        percentSlider.value = item.wateringPercent,
+        tankSlider.value = item.tankDepth
+        percentValue.innerText = `${item.wateringPercent} %`;
+        wateringValue.innerText = `${item.wateringDuration} s`;
+        tankValue.innerText = `${item.tankDepth} cm`,
+        id = item.id
+    })
     })
     
     document.getElementById('update-form').addEventListener('submit', function(event) {

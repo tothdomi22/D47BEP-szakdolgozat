@@ -35,10 +35,7 @@ const indexControlPanel = (req, res) => {
 
 const getLatestData = async (req,  res) => {
     try {
-        const data = await Controlpanel.findOne({
-            where: {
-                id: 1
-            }
+        const data = await Controlpanel.findAll({
         })
         res.status(200).json(data);
     } catch (error) {

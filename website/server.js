@@ -3,6 +3,7 @@ const sequelize = require('./config/config');
 const port = 3000;
 
 
+
 //database sync
 sequelize.sync()
   .then(() => {
@@ -13,3 +14,4 @@ sequelize.sync()
   .catch(error => {
     console.error('Error syncing the database:', error);
   });
+  

@@ -14,19 +14,23 @@ const register = (req, res) => {
     res.sendFile(path.join(__dirname, '..', './views/auth/register.html'))
 }
 
-const storeRegistration = async (req, res) => {
+const storeRegistration = (req, res) => {
     const salt = crypto.randomBytes(16); //seed
     try {
         crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', async function(err, hashed_password) {
-            const data = User.create({
+            const user = await User.create({
                 username: req.body.username,
                 hashed_password: hashed_password,
                 email: req.body.email,
                 name: req.body.name,
                 salt: salt
         })
+        //log in after registration
+        req.login(user, function(err) {
+            if (err) { return next(err); }
+            res.redirect('/');
+          });
         });
-        res.redirect('/');
     } catch (error) {
         res.status(500).send(`${error}, not success`)
     }

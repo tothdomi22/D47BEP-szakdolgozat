@@ -10,6 +10,7 @@ require('./config/passport')
 const sensorRouter = require('./routes/sensorRoutes');
 const controlPanelRouter = require('./routes/controlPanelRoutes');
 const authRouter = require('./routes/authRoutes')
+const adminRouter = require('./routes/adminRoutes')
 
 //Middleware
 app.use(express.json());
@@ -23,5 +24,6 @@ app.use(passport.session())
 app.use('/', sensorRouter);
 app.use('/', authRouter);
 app.use('/control-panel', controlPanelRouter);
+app.use('/admin', adminRouter);
 
 module.exports = app;

@@ -12,7 +12,18 @@ const index = (req, res) => {
     res.sendFile(path.join(__dirname, '..', '/views/admin/users.html'))
 }
 
+const deleteUser = async (req, res) => {
+    const userID = req.params.id;
+    
+    const user = await User.destroy({
+        where: {
+            id: userID
+        }
+    })
+}
+
 module.exports = {
     getUsers,
-    index
+    index,
+    deleteUser
 }

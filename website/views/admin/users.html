@@ -7,9 +7,27 @@
 </head>
 <body>
 
-    <div id="users">    </div>
+    <div>
+        <ul id="users_list">
+
+        </ul>
+    </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            
+            fetch("/admin/users_list")
+            .then(response => response.json())
+            .then(data => {
+                for(let i = 0; i<data.length; i++) {
+                    const node = document.createElement("li")
+                    const textnode = document.createTextNode(data[i].username)
+                    node.appendChild(textnode);
+                    document.getElementById("users_list").appendChild(node)
+                }
+                
+            })
+        })
     </script>
 </body>
 </html>

@@ -24,8 +24,13 @@
                     const textnode = document.createTextNode(data[i].username)
                     node.appendChild(textnode);
                     document.getElementById("users_list").appendChild(node)
+
+
+                    fetch("/admin/users/delete", function(){
+
+                    })
                 }
-                
+
             })
         })
     </script>

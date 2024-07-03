@@ -23,7 +23,8 @@ const storeRegistration = (req, res) => {
                 hashed_password: hashed_password,
                 email: req.body.email,
                 name: req.body.name,
-                salt: salt
+                salt: salt,
+                isAdmin: false
         })
         //log in after registration
         req.login(user, function(err) {
@@ -50,7 +51,7 @@ const logout = (req, res) => {
 
 const currentUser = (req, res) => {
     if (req.user && req.user.username) {
-        res.json({ username: req.user.username });
+        res.json({ username: req.user.username, isAdmin: req.user.isAdmin });
     } else {
         res.status(401).send('User not authenticated');
     }

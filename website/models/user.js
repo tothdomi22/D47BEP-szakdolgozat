@@ -30,7 +30,8 @@ module.exports = function(sequelize, Sequelize) {
       },
       isAdmin: {
         type: DataTypes.BOOLEAN,
-        allownull: false
+        allownull: false,
+        defaultValue: false
       }
   })
   /*User.prototype.validPassword = function (hashed_password) {

@@ -70,26 +70,33 @@
                     
     <script>
         document.addEventListener('DOMContentLoaded', function(){
+          const usersList = document.getElementById('users_list')
+
+          function removeAdmin (button) {
+            buttonAdmin.setAttribute('class', 'btn disabled');
+            buttonAdmin.textContent = 'Admin';
+            node.appendChild(buttonAdmin);
+            usersList.appendChild(node);
+          }
             
             fetch("/admin/users_list")
-            .then(response => response.json())
+            .then(res => res.json())
             .then(data => {
                 for(let i = 0; i<data.length; i++) {
                     const node = document.createElement("li")
                     const textnode = document.createTextNode(data[i].username)
                     node.setAttribute('class', 'list-group-item')
-                    node.appendChild(textnode);
+                    node.appendChild(textnode); 
                     
-                    const button = document.createElement("button");
-                    button.textContent = "Delete"
-                    button.setAttribute('data-id', data[i].id)
-                    button.setAttribute('class', 'btn btn-danger')
+                    const buttonDel = document.createElement("button");
+                    buttonDel.textContent = "Delete"
+                    buttonDel.setAttribute('data-id', data[i].id)
+                    buttonDel.setAttribute('class', 'btn btn-danger')
                     
-                    node.appendChild(button);
-                    document.getElementById("users_list").appendChild(node)
+                    node.appendChild(buttonDel);
+                    usersList.appendChild(node)
 
-
-                    button.addEventListener("click", function(event){
+                    buttonDel.addEventListener("click", function(event){
                             const userID = event.target.getAttribute('data-id');
                             fetch(`/admin/users/delete/${userID}`, {
                                 method: "delete",
@@ -100,8 +107,32 @@
                             .then(node.remove())
     
                         })
+                        const buttonAdmin = document.createElement("button");
+                        if (data[i].isAdmin == true) {
+                          buttonAdmin.setAttribute('class', 'btn disabled');
+                          buttonAdmin.textContent = 'Admin';
+                          node.appendChild(buttonAdmin);
+                          usersList.appendChild(node);
+                        } else {  
+                          buttonAdmin.textContent = "Set Admin"
+                          buttonAdmin.setAttribute('data-id', data[i].id)
+                          buttonAdmin.setAttribute('class', "btn btn-success")
+                          node.appendChild(buttonAdmin)
+                          usersList.appendChild(node);
+                          
+                          buttonAdmin.addEventListener('click', (event) => {
+                            const userID = event.target.getAttribute('data-id')
+                            fetch(`/admin/update/${userID}`, {
+                              method: "put",
+                              headers: {
+                                'Content-Type': 'application/json'
+                              }
+                            })
+                            .then(buttonAdmin.setAttribute('class', 'btn disabled'))
+                            .then(buttonAdmin.textContent = "Admin")
+                          })
+                        }
                 }
-
             })
         })
     </script>

@@ -22,8 +22,21 @@ const deleteUser = async (req, res) => {
     })
 }
 
+const addAdmin = async (req, res) => {
+    const userID = req.params.id;
+
+    const user = await User.update(
+        {isAdmin: 1},
+        {
+        where : {
+            id: userID
+        }
+    })
+}
+
 module.exports = {
     getUsers,
     index,
-    deleteUser
+    deleteUser,
+    addAdmin
 }

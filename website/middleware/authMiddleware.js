@@ -8,10 +8,10 @@ module.exports = {
         }
     },
     isAdmin: function(req, res, next) {
-      if(req.user.isadmin === 1 && req.user){
+      if(req.user.isAdmin == true && req.user){
         return next()
       }
       else 
-        return res.redirect('/login')
+        return res.status(401).json({message: "Not authorized!"})
     }
 }

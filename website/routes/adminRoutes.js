@@ -6,6 +6,7 @@ const { isAuthenticated, isAdmin } = require('../middleware/authMiddleware');
 router.get('/users_list', isAuthenticated, adminController.getUsers);
 router.get('/users', isAdmin, adminController.index);
 router.delete('/users/delete/:id', isAdmin, adminController.deleteUser);
-router.put('/update/:id', isAdmin, adminController.addAdmin);
+router.put('/users/addAdmin/:id', isAdmin, adminController.addAdmin);
+router.put('/users/removeAdmin/:id/', isAdmin, adminController.removeAdmin);
 
 module.exports = router;

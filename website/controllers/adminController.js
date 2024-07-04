@@ -1,7 +1,8 @@
 const sequelize = require('../config/config');
 const { DataTypes} = require("sequelize");
 const User = require('../models/user')(sequelize, DataTypes);
-const path = require('path')
+const path = require('path');
+const user = require('../models/user');
 
 const getUsers = async (req, res) => {
     const data = await User.findAll();
@@ -26,7 +27,7 @@ const addAdmin = async (req, res) => {
     const userID = req.params.id;
 
     const user = await User.update(
-        {isAdmin: 1},
+        {isAdmin: true},
         {
         where : {
             id: userID
@@ -34,9 +35,23 @@ const addAdmin = async (req, res) => {
     })
 }
 
+const removeAdmin = async (req, res) => {
+   const userID = req.params.id
+
+   const user = await User.update(
+    {isAdmin : false},
+    {
+        where: {
+        id: userID
+    }
+    })
+}
+
+
 module.exports = {
     getUsers,
     index,
     deleteUser,
-    addAdmin
+    addAdmin,
+    removeAdmin
 }

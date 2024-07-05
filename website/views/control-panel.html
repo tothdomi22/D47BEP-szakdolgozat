@@ -8,13 +8,16 @@
 </head>
 <body>
 
-    <script>document.addEventListener('DOMContentLoaded', function() {
-        fetch('/current_user')
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById('dropdown_link').innerText = data.username
-        })
-      })</script>
+  <script>document.addEventListener('DOMContentLoaded', function() {
+    fetch('/current_user')
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('dropdown_link').innerText = data.username;
+      if (data.isAdmin == true) {
+        document.getElementById('users').setAttribute('class', 'navbar-nav me-auto')
+      }
+    })
+  })</script>
 
     <nav class="navbar navbar-expand-md bg-white shadow-sm">
         <div class="container-fluid">

@@ -5,6 +5,7 @@ const path = require('path')
 require('../config/passport')
 const User = require('../models/user')
 const authController = require('../controllers/authController')
+const {isAuthenticated} =  require('../middleware/authMiddleware')
 
 
 
@@ -19,6 +20,10 @@ router.post('/login/password', authController.loginPassword);
 router.get('/logout', authController.logout);
 
 router.get('/current_user', authController.currentUser);
+
+router.get('/change-password', isAuthenticated ,authController.changePasswordPage);
+
+router.post('/change-password/store', isAuthenticated, authController.changePasswordStore);
 
 
 module.exports = router;

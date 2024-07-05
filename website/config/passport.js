@@ -24,11 +24,33 @@ passport.use(new LocalStrategy(async function(username, password, done) {
       }
   }
   ))
-    
+
+
+  passport.serializeUser(function(user, cb) {
+    process.nextTick(function() {
+      return cb(null, {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        name: user.name,
+        isAdmin: user.isAdmin
+      });
+    });
+  });
+  
+  passport.deserializeUser(function(user, cb) {
+    process.nextTick(function() {
+      return cb(null, user);
+    });
+  });
+
+  /*
 passport.serializeUser(function(user, done) {
     done(null, user.id);
 });
 
+
+
 passport.deserializeUser(function(id, done) {
     User.findByPk(id).then(function(user) { done(null, user); });
-});
+});*/

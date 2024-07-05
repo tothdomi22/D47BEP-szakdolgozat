@@ -42,6 +42,7 @@ const loginPassword = passport.authenticate('local', {
     failureRedirect: '/login'
   })
 
+
 const logout = (req, res) => {
     req.logout(() => {
         res.redirect('/');
@@ -51,10 +52,38 @@ const logout = (req, res) => {
 
 const currentUser = (req, res) => {
     if (req.user && req.user.username) {
-        res.json({ username: req.user.username, isAdmin: req.user.isAdmin });
+        res.json({id: req.user.id, username: req.user.username, isAdmin: req.user.isAdmin, email: req.user.email, name: req.user.name });
     } else {
         res.status(401).send('User not authenticated');
     }
+}   
+
+const changePasswordPage = (req, res) => {
+    res.sendFile(path.join(__dirname, "..", "/views/auth/change-password.html"))
+}
+
+const changePasswordStore = async (req, res) => {
+    console.log(req.user.id)
+    console.log(req.body.name)
+    const salt = crypto.randomBytes(16); //seed
+    try {
+        crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', async function(err, hashed_password) {
+            const user = await User.update({
+                hashed_password: hashed_password,
+                name: req.body.name,
+                salt: salt,
+            },
+            {
+                where: {
+                    id: req.user.id //this is where it stores the cookied auth data
+                }
+            })
+        res.redirect('/')
+        }); 
+    } catch (error) {
+        res.json({error: error})
+    }
+
 }
 
 
@@ -65,5 +94,7 @@ module.exports = {
     logout,
     storeRegistration,
     loginPassword,
-    currentUser
+    currentUser,
+    changePasswordPage,
+    changePasswordStore
 }

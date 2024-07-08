@@ -3,6 +3,7 @@ const path = require('path');
 const passport = require('passport')
 const session = require('express-session')
 const app = express();
+const cors = require("cors");
 require('./config/passport')
 
 
@@ -19,6 +20,7 @@ app.use(express.static(path.join(__dirname, 'views')));
 app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized:true}));
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(cors());
 
 //Routes
 app.use('/', sensorRouter);
